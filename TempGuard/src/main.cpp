@@ -4,9 +4,11 @@ const int relayPin = PC13;
 const int temperaturePin = PA5;
 const int lowThresholdPotPin = PA0;
 const int highThresholdPotPin = PA1;
+const int switchPin = PC14;  // Switch input pin
 const int redLedPin = PB7;    // PWM output pin for red LED
 const int greenLedPin = PB6;  // PWM output pin for green LED
 const int pwmFrequency = 1000;  // PWM frequency in Hz
+
 
 int lowThreshold = 0;
 int highThreshold = 0;
@@ -22,6 +24,7 @@ int currentReading = 0;  // Index of the current reading
 int averageTemperature = 0;  // Average temperature value
 int averageLowThreshold = 0;  // Average lowThresholdPot value
 int averageHighThreshold = 0;  // Average highThresholdPot value
+bool switchState = false;  // State of the switch
 
 void setup() {
 
@@ -29,10 +32,13 @@ void setup() {
   digitalWrite(relayPin, LOW);  // Set relay pin to LOW using internal pulldown resistor
   pinMode(redLedPin, OUTPUT);
   pinMode(greenLedPin, OUTPUT);
+  pinMode(switchPin, INPUT_PULLDOWN);  // Set switch pin as input with internal pull-down resistor
+
 
   pinMode(temperaturePin, INPUT_ANALOG);
   pinMode(lowThresholdPotPin, INPUT_ANALOG);
   pinMode(highThresholdPotPin, INPUT_ANALOG);
+
 
   Serial.begin(9600);
 }
@@ -45,7 +51,7 @@ void loop() {
   if (currentMillis - previousMillis >= delayInterval) {
     previousMillis = currentMillis; // Update the previous time
 
-
+    // Read analog values
     int temperatureValue = analogRead(temperaturePin);
 
     // Store the current readings in the arrays
@@ -82,7 +88,17 @@ void loop() {
 
     int mappedTemperature = map(averageTemperature, 0, 4095, 0, 100);
     lowThreshold = map(averageLowThreshold, 0, 4095, 60, 100);
-    highThreshold = map(averageHighThreshold, 0, 4095, 75, 95);
+
+ 
+    switchState = digitalRead(switchPin);
+
+    if (switchState) {
+      // Switch is in the high state, increment highThreshold by 4 points
+      highThreshold = map(averageHighThreshold, 0, 4095, 75, 95) + 4;
+    } else {
+      // Switch is in the low state, use highThresholdPot value as it is
+      highThreshold = map(averageHighThreshold, 0, 4095, 75, 95);
+    }
 
     // Print values
     Serial.print("Temperature Value: ");
