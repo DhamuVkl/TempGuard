@@ -8,17 +8,20 @@ const int redLedPin = PB7;    // PWM output pin for red LED
 const int greenLedPin = PB6;  // PWM output pin for green LED
 const int pwmFrequency = 1000;  // PWM frequency in Hz
 
-
 int lowThreshold = 0;
 int highThreshold = 0;
 unsigned long previousMillis = 0;
 int brightness = 0;
 int fadeAmount = 5;  // Rate of brightness change
 unsigned long delayInterval = 1000;  // Delay interval in milliseconds
-const int numReadings = 5;  // Number of temperature readings for averaging
+const int numReadings = 20;  // Number of temperature readings for averaging
 int temperatureReadings[numReadings];  // Array to store temperature readings
+int lowThresholdReadings[numReadings];  // Array to store lowThresholdPot readings
+int highThresholdReadings[numReadings];  // Array to store highThresholdPot readings
 int currentReading = 0;  // Index of the current reading
 int averageTemperature = 0;  // Average temperature value
+int averageLowThreshold = 0;  // Average lowThresholdPot value
+int averageHighThreshold = 0;  // Average highThresholdPot value
 
 void setup() {
 
@@ -27,12 +30,10 @@ void setup() {
   pinMode(redLedPin, OUTPUT);
   pinMode(greenLedPin, OUTPUT);
 
-
   pinMode(temperaturePin, INPUT_ANALOG);
   pinMode(lowThresholdPotPin, INPUT_ANALOG);
   pinMode(highThresholdPotPin, INPUT_ANALOG);
 
- 
   Serial.begin(9600);
 }
 
@@ -44,10 +45,13 @@ void loop() {
   if (currentMillis - previousMillis >= delayInterval) {
     previousMillis = currentMillis; // Update the previous time
 
+
     int temperatureValue = analogRead(temperaturePin);
 
-    // Store the current reading in the array
+    // Store the current readings in the arrays
     temperatureReadings[currentReading] = temperatureValue;
+    lowThresholdReadings[currentReading] = analogRead(lowThresholdPotPin);
+    highThresholdReadings[currentReading] = analogRead(highThresholdPotPin);
 
     // Move to the next reading index
     currentReading++;
@@ -62,10 +66,25 @@ void loop() {
     }
     averageTemperature /= numReadings;
 
-    int mappedTemperature = map(averageTemperature, 0, 4095, 0, 100);
-    lowThreshold = map(analogRead(lowThresholdPotPin), 0, 4095, 0, 100);
-    highThreshold = map(analogRead(highThresholdPotPin), 0, 4095, 0, 100);
+    // Calculate the average lowThresholdPot value
+    averageLowThreshold = 0;
+    for (int i = 0; i < numReadings; i++) {
+      averageLowThreshold += lowThresholdReadings[i];
+    }
+    averageLowThreshold /= numReadings;
 
+    // Calculate the average highThresholdPot value
+    averageHighThreshold = 0;
+    for (int i = 0; i < numReadings; i++) {
+      averageHighThreshold += highThresholdReadings[i];
+    }
+    averageHighThreshold /= numReadings;
+
+    int mappedTemperature = map(averageTemperature, 0, 4095, 0, 100);
+    lowThreshold = map(averageLowThreshold, 0, 4095, 60, 100);
+    highThreshold = map(averageHighThreshold, 0, 4095, 75, 95);
+
+    // Print values
     Serial.print("Temperature Value: ");
     Serial.print(mappedTemperature);
     Serial.print("\tLow Threshold: ");
@@ -76,14 +95,14 @@ void loop() {
     // Compare values and control relay
     if (mappedTemperature > highThreshold) {
       digitalWrite(relayPin, HIGH);  // Turn off the relay
-      fadeAmount = -5;  // Decrease brightness
+      fadeAmount = -15;  // Decrease brightness
       Serial.println("\tRelay OFF");
     } else if (mappedTemperature <= lowThreshold) {
       digitalWrite(relayPin, LOW);  // Turn on the relay
-      fadeAmount = 5;  // Increase brightness
+      fadeAmount = 15;  // Increase brightness
       Serial.println("\tRelay ON");
     } else {
-      digitalWrite(relayPin, LOW);  // Set relay pin to LOW using internal pulldown resistor
+      //digitalWrite(relayPin, LOW);  // Set relay pin to LOW using internal pulldown resistor
       Serial.println("\t");
     }
 
