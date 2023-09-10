@@ -76,6 +76,8 @@ Contributions are what make the open source community such an amazing place to b
 * Create individual PR for each suggestion.
 
 ## Struggles Faced during Development:
+<img align="right" alt="coding" width="500" src="https://dharageshtech.files.wordpress.com/2023/09/img_20230616_124905.jpg?strip=info&w=1800">
+
 * **Analog Prototype with OP-AMP (LM358):** The initial version of the prototype relied on an analog design, utilizing an LM358 OP-AMP in hysteresis mode. However, this approach proved sensitive to Electromagnetic Interference (EMI) during field tests.
   
 
