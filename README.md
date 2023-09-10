@@ -29,7 +29,7 @@
 
 ## About The Project
 
-![Screen Shot](https://dharageshtech.files.wordpress.com/2023/09/img_20230619_160427.jpg?w=1024)
+![Screen Shot](https://dharageshtech.files.wordpress.com/2023/09/1694341662716.jpg?strip=info&w=1800)
 
 **TempGuard** is a sophisticated temperature control system designed for industrial heating applications. It employs a unique approach by utilizing an IRFZ44N MOSFET as a temperature sensor, enabling precise temperature measurements. This innovative system, driven by a BluePill microcontroller (STM32F103C8T6), ensures heating elements operate within desired temperature ranges. Additionally, it features a user interface for seamless adjustments.
 
