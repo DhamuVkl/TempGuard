@@ -20,6 +20,7 @@
 * [About the Project](#about-the-project)
 * [Key Features](#key-features)
 * [Technologies Used](#technologies-used)
+* [Schematics & Fabrication](#schematics-and-fabrication)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
 * [License](#license)
@@ -29,7 +30,7 @@
 
 ## About The Project
 
-![Screen Shot](https://dharageshtech.files.wordpress.com/2023/09/1694341662716.jpg?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-1-1.png?strip=info&w=1800)
 
 **TempGuard** is a sophisticated temperature control system designed for industrial heating applications. It employs a unique approach by utilizing an IRFZ44N MOSFET as a temperature sensor, enabling precise temperature measurements. This innovative system, driven by a BluePill microcontroller (STM32F103C8T6), ensures heating elements operate within desired temperature ranges. Additionally, it features a user interface for seamless adjustments.
 
@@ -47,7 +48,7 @@
 
 * **Robust Performance:** Engineered to function reliably under extreme temperature conditions, both in hot and cold environments.
 
-  
+  ![Screen Shot](https://dharageshtech.files.wordpress.com/2023/09/1694341662716.jpg?strip=info&w=1800)
 
 ## Technologies Used:
 
@@ -62,6 +63,20 @@
 
 * **User Interface with Switch:** Enables users to toggle between two predefined temperature settings, adding flexibility to the system.  
 
+## Schematics and Fabrication 
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-sh-0.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-sh-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-sh-2.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-sh-3.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-sh-4.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-2-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-3-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-4-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-5-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-6-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-7-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-8-1.png?strip=info&w=1800)
+![Screen Shot](https://dharageshtech.wordpress.com/wp-content/uploads/2024/06/tempguard-9-1.png?strip=info&w=1800)
 
 
 ## Roadmap
